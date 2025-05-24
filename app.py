@@ -63,5 +63,6 @@ async def translate(request: Request):
     )
 
 # Run the application
+#uvicorn app:app --reload --- using this command
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
