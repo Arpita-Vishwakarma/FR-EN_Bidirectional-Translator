@@ -1,27 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Language Translator</title>
-  <link rel="stylesheet" href="/static/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoTranslate - Professional Language Translator</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <h1>Bi-Directional Translator (EN ⇄ FR)</h1>
-  <form action="/translate" method="post">
-    <label for="direction">Direction:</label>
-    <select id="direction" name="direction">
-      <option value="en2fr" {% if direction=='en2fr' %}selected{% endif %}>English → French</option>
-      <option value="fr2en" {% if direction=='fr2en' %}selected{% endif %}>French → English</option>
-    </select>
-    <br/>
-    <textarea name="text" rows="4" cols="50" placeholder="Enter text...">{{ original or '' }}</textarea>
-    <br/>
-    <button type="submit">Translate</button>
-  </form>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-language"></i>
+                <h1>NeoTranslate</h1>
+            </div>
+            <p class="subtitle">Professional Language Translation Service</p>
+        </header>
 
-  {% if translated %}
-    <h2>Translation:</h2>
-    <div class="translated">{{ translated }}</div>
-  {% endif %}
+        <!-- Main Translation Interface -->
+        <main class="translator-container">
+            <form action="/translate" method="post" class="translator-form" id="translatorForm">
+                <!-- Language Direction Selector -->
+                <div class="direction-selector">
+                    <div class="language-option" data-direction="en2fr">
+                        <span class="flag">🇺🇸</span>
+                        <span class="lang-name">English</span>
+                    </div>
+                    <button type="button" class="swap-btn" id="swapBtn">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+                    <div class="language-option" data-direction="fr2en">
+                        <span class="flag">🇫🇷</span>
+                        <span class="lang-name">French</span>
+                    </div>
+                </div>
+
+                <!-- Hidden input for direction -->
+                <input type="hidden" name="direction" id="direction" value="{{ direction or 'en2fr' }}">
+
+                <!-- Translation Boxes -->
+                <div class="translation-boxes">
+                    <!-- Input Box -->
+                    <div class="text-box input-box">
+                        <div class="box-header">
+                            <span class="language-label" id="inputLabel">English</span>
+                            <div class="char-count">
+                                <span id="charCount">0</span>/500
+                            </div>
+                        </div>
+                        <textarea 
+                            name="text" 
+                            id="inputText"
+                            placeholder="Enter text to translate..."
+                            maxlength="500"
+                            rows="6"
+                        >{{ original or '' }}</textarea>
+                        <div class="box-footer">
+                            <button type="button" class="clear-btn" id="clearBtn">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Output Box -->
+                    <div class="text-box output-box">
+                        <div class="box-header">
+                            <span class="language-label" id="outputLabel">French</span>
+                            {% if translated %}
+                            <button type="button" class="copy-btn" id="copyBtn">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            {% endif %}
+                        </div>
+                        <div class="output-text" id="outputText">
+                            {% if translated %}
+                                {{ translated }}
+                            {% else %}
+                                <span class="placeholder">Translation will appear here...</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Translate Button -->
+                <div class="translate-section">
+                    <button type="submit" class="translate-btn" id="translateBtn">
+                        <i class="fas fa-language"></i>
+                        <span>Translate</span>
+                        <div class="loading-spinner" id="loadingSpinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h3>Fast Translation</h3>
+                <p>Get instant translations with high accuracy</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure & Private</h3>
+                <p>Your text is processed securely and privately</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Friendly</h3>
+                <p>Works perfectly on all devices</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 NeoTranslate. Professional translation services.</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
 </body>
 </html>
