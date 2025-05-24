@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Language Translator</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <h1>Bi-Directional Translator (EN ⇄ FR)</h1>
+  <form action="/translate" method="post">
+    <label for="direction">Direction:</label>
+    <select id="direction" name="direction">
+      <option value="en2fr" {% if direction=='en2fr' %}selected{% endif %}>English → French</option>
+      <option value="fr2en" {% if direction=='fr2en' %}selected{% endif %}>French → English</option>
+    </select>
+    <br/>
+    <textarea name="text" rows="4" cols="50" placeholder="Enter text...">{{ original or '' }}</textarea>
+    <br/>
+    <button type="submit">Translate</button>
+  </form>
+
+  {% if translated %}
+    <h2>Translation:</h2>
+    <div class="translated">{{ translated }}</div>
+  {% endif %}
+</body>
+</html>
