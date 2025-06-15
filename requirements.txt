@@ -1,11 +1,12 @@
 fastapi
-uvicorn
+uvicorn[standard]
 jinja2
 transformers
 torch
 sentencepiece
 sacremoses
 pandas
-
-
-
+speechrecognition
+pyttsx3
+langdetect
+pydantic
